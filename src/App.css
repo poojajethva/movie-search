@@ -1,0 +1,166 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.App {
+  padding: 30px;
+  font-size: 16px;
+  line-height: 1.4;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.App h2 {
+  font-size: 26px;
+  text-align: center;
+  color: gray;
+  margin-bottom: 20px;
+}
+
+.App input {
+  width: 100%;
+  border-radius: 4px;
+  padding: 0 10px;
+  height: 56px;
+  border: 1px solid rgba(0, 0, 0, 0.23);
+  outline: none;
+  font-size: 16px;
+}
+
+.App input:focus {
+  border-color: #1976d2;
+}
+
+.autocompleteWrapper {
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+
+.autoContainer {
+  box-shadow: 0px 0px 10px rgb(0 0 0 / 20%);
+  position: absolute;
+  top: 58px;
+  width: 100%;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.23);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.option{
+  padding: 7px 10px;
+  cursor: pointer;
+}
+
+.option:hover{
+  background-color: #eee;
+}
+
+.movieWrap{
+  margin: 30px auto 0;
+  border-top: 1px solid #ddd;
+  padding: 30px 0;
+  display: flex;
+  max-width: 980px;
+  width: 96%;
+}
+
+.movieLeft{
+  max-width: 300px;
+  width: 100%;
+}
+.movieLeft img{
+  max-width: 300px;
+  width: 100%;
+  border-radius: 4px;
+}
+
+.movieRight{
+  margin-left: 30px;
+}
+
+.topData {
+  background: #eee;
+  padding: 20px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.title{
+  font-size: 26px;
+  color: grey;
+  font-weight: bold;
+}
+
+.details{
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.details span{
+  margin-right: 10px;
+  background: #1976d2;
+  padding: 5px 10px;
+  border-radius: 4px;
+  color: #fff;
+  display: inline-block;
+  margin-bottom: 5px;
+}
+.dataRight{
+  margin-left: 20px;
+}
+.ratingTitle{
+  font-size: 14px;
+  font-style: italic;
+  font-weight: normal;
+  color: gray;
+}
+.ratings{
+  font-size: 18px;
+  margin-bottom: 5px;
+ color: #1976d2;
+ font-weight: bold;
+ text-align: right;
+}
+
+.para{
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.para em{
+  color: gray;
+}
+
+.plot{
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+@media only screen and (max-width: 767px) {
+  .movieWrap, .topData{
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+  .movieLeft{
+    margin: 0 auto 20px;
+  }
+  .movieRight, .dataRight{
+    margin-left: 0;
+  }
+  .dataRight{
+    margin-top: 10px;
+  }
+  .ratings{
+    display: block;
+    text-align: center;
+    margin-bottom: 5px;
+  }
+}
