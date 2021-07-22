@@ -5,15 +5,13 @@ const Autocomplete = ({ getSelectedValue }) => {
   const [options, setOptions] = useState([]);
   const [search, setSearch] = useState("");
   const wrapperRef = useRef(null);
-  let [callMe, setCallMe] = useState(false);
 
   useEffect(() => {
     const cleanTimeout = setTimeout(() => {
       let term = search.trim();
-      if (term.length < 3 || !callMe) {
+      if (term.length < 3) {
         setOptions([]);
         setDisplay(false);
-        setCallMe(true);
       } else {
         fetch(`https://www.omdbapi.com/?s=${term}&page=1&apikey=64bd85e7`)
           .then((res) => res.json())
@@ -54,8 +52,7 @@ const Autocomplete = ({ getSelectedValue }) => {
   };
 
   const updateVal = (val) => {
-    setSearch(val);
-    setCallMe(false);
+    setSearch("");
     setDisplay(false);
     getSelectedValue(val);
   };
@@ -67,7 +64,6 @@ const Autocomplete = ({ getSelectedValue }) => {
         placeholder="Search movies / series"
         value={search}
         onChange={(event) => {
-          setCallMe(true);
           setSearch(event.target.value);
         }}
       />
