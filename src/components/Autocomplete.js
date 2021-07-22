@@ -6,18 +6,6 @@ const Autocomplete = ({ getSelectedValue }) => {
   const [search, setSearch] = useState("");
   const wrapperRef = useRef(null);
 
-//   const debounce = (func) => {
-//     let timer;
-//     return function (...args) {
-//       const context = this;
-//       if (timer) clearTimeout(timer);
-//       timer = setTimeout(() => {
-//         timer = null;
-//         func.apply(context, args);
-//       }, 300);
-//     };
-//   };
-
   useEffect(() => {
     const cleanTimeout = setTimeout(()=>{
 
