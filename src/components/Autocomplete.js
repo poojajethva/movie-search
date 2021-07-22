@@ -6,36 +6,45 @@ const Autocomplete = ({ getSelectedValue }) => {
   const [search, setSearch] = useState("");
   const wrapperRef = useRef(null);
 
-  //   const debounce = (func) => {
-  //     let timer;
-  //     return function (...args) {
-  //       const context = this;
-  //       if (timer) clearTimeout(timer);
-  //       timer = setTimeout(() => {
-  //         timer = null;
-  //         func.apply(context, args);
-  //       }, 300);
-  //     };
-  //   };
+//   const debounce = (func) => {
+//     let timer;
+//     return function (...args) {
+//       const context = this;
+//       if (timer) clearTimeout(timer);
+//       timer = setTimeout(() => {
+//         timer = null;
+//         func.apply(context, args);
+//       }, 300);
+//     };
+//   };
 
   useEffect(() => {
-    if (search.length < 3) {
-      setOptions([]);
-    } else {
-      fetch(`https://www.omdbapi.com/?s=${search}&page=1&apikey=64bd85e7`)
-        .then((res) => res.json())
-        .then((res) => {
-          if (res.Search) {
-            let results =
-              res.Search.length > 5 ? res.Search.slice(0, 5) : res.Search;
-            setOptions(results);
-          } else {
+    const cleanTimeout = setTimeout(()=>{
+
+      if (search.length < 3) {
+        setOptions([]);
+        setDisplay(false);
+      } else {
+        fetch(`https://www.omdbapi.com/?s=${search}&page=1&apikey=64bd85e7`)
+          .then((res) => res.json())
+          .then((res) => {
+            if (res.Search) {
+              let results =
+                res.Search.length > 5 ? res.Search.slice(0, 5) : res.Search;
+              setOptions(results);
+                setDisplay(true);
+            } else {
+              setOptions([]);
+            }
+          })
+          .catch((err) => {
             setOptions([]);
-          }
-        })
-        .catch((err) => {
-          setOptions([]);
-        });
+          });
+      }
+    },300);
+    return () => {
+      console.log("clean" )
+      clearTimeout(cleanTimeout);
     }
   }, [search]);
 
