@@ -32,3 +32,4 @@ What features it has?
 2. Autocomplete could have up and down arrow key listners which highlight the item in the list.
 3. Debouncing i.e. for limited calling api can be applied.
 4. Some bugs can be fixed in autocomplete.
+5. Loaders can be added before showing the content.
