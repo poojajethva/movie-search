@@ -13,8 +13,8 @@
 git clone https://github.com/poojajethva/movie-search.git
 
 2. Run the project:
-$ cd movie-search 
-$ npm start
+  1. $ cd movie-search 
+  2. $ npm start
 
 **About "Movie Search" project:**
 
