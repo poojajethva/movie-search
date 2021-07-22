@@ -28,7 +28,6 @@ What features it has?
 
 **Improvements needed for:**
 
-1. Design can be more classy.
+1. Design can be much better.
 2. Autocomplete could have up and down arrow key listners which highlight the item in the list.
-3. Some bugs can be fixed in autocomplete.
-4. Loaders can be added before showing the content.
+3. Loader can be added before showing the content.
