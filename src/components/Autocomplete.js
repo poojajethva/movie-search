@@ -5,36 +5,37 @@ const Autocomplete = ({ getSelectedValue }) => {
   const [options, setOptions] = useState([]);
   const [search, setSearch] = useState("");
   const wrapperRef = useRef(null);
+  let [callMe, setCallMe] = useState(false);
 
-  useEffect(() => {
-    const cleanTimeout = setTimeout(()=>{
-
-      if (search.length < 3) {
-        setOptions([]);
-        setDisplay(false);
-      } else {
-        fetch(`https://www.omdbapi.com/?s=${search}&page=1&apikey=64bd85e7`)
-          .then((res) => res.json())
-          .then((res) => {
-            if (res.Search) {
-              let results =
-                res.Search.length > 5 ? res.Search.slice(0, 5) : res.Search;
-              setOptions(results);
+    useEffect(() => {
+      const cleanTimeout = setTimeout(() => {
+        if (search.length < 3 || !callMe) {
+          setOptions([]);
+          setDisplay(false);
+        } else {
+          fetch(`https://www.omdbapi.com/?s=${search}&page=1&apikey=64bd85e7`)
+            .then((res) => res.json())
+            .then((res) => {
+              if (res.Search) {
+                let results =
+                  res.Search.length > 5 ? res.Search.slice(0, 5) : res.Search;
+                setOptions(results);
                 setDisplay(true);
-            } else {
+              } else {
+                setOptions([]);
+                setDisplay(false);
+              }
+            })
+            .catch((err) => {
               setOptions([]);
-            }
-          })
-          .catch((err) => {
-            setOptions([]);
-          });
-      }
-    },300);
-    return () => {
-      console.log("clean" )
-      clearTimeout(cleanTimeout);
-    }
-  }, [search]);
+              setDisplay(false);
+            });
+        }
+      }, 300);
+      return () => {
+        clearTimeout(cleanTimeout);
+      };
+    }, [search]);
 
   useEffect(() => {
     window.addEventListener("mousedown", handleClickOutside);
@@ -52,6 +53,7 @@ const Autocomplete = ({ getSelectedValue }) => {
 
   const updateVal = (val) => {
     setSearch(val);
+    setCallMe(false);
     setDisplay(false);
     getSelectedValue(val);
   };
@@ -61,9 +63,8 @@ const Autocomplete = ({ getSelectedValue }) => {
       <input
         type="text"
         placeholder="Search movies / series"
-        onClick={() => setDisplay(!display)}
         value={search}
-        onChange={(event) => setSearch(event.target.value)}
+        onChange={(event) => {setCallMe(true);setSearch(event.target.value)}}
       />
       {display && (
         <div className="autoContainer">
