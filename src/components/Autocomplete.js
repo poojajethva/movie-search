@@ -7,35 +7,37 @@ const Autocomplete = ({ getSelectedValue }) => {
   const wrapperRef = useRef(null);
   let [callMe, setCallMe] = useState(false);
 
-    useEffect(() => {
-      const cleanTimeout = setTimeout(() => {
-        if (search.length < 3 || !callMe) {
-          setOptions([]);
-          setDisplay(false);
-        } else {
-          fetch(`https://www.omdbapi.com/?s=${search}&page=1&apikey=64bd85e7`)
-            .then((res) => res.json())
-            .then((res) => {
-              if (res.Search) {
-                let results =
-                  res.Search.length > 5 ? res.Search.slice(0, 5) : res.Search;
-                setOptions(results);
-                setDisplay(true);
-              } else {
-                setOptions([]);
-                setDisplay(false);
-              }
-            })
-            .catch((err) => {
+  useEffect(() => {
+    const cleanTimeout = setTimeout(() => {
+      let term = search.trim();
+      if (term.length < 3 || !callMe) {
+        setOptions([]);
+        setDisplay(false);
+        setCallMe(true);
+      } else {
+        fetch(`https://www.omdbapi.com/?s=${term}&page=1&apikey=64bd85e7`)
+          .then((res) => res.json())
+          .then((res) => {
+            if (res.Search) {
+              let results =
+                res.Search.length > 5 ? res.Search.slice(0, 5) : res.Search;
+              setOptions(results);
+              setDisplay(true);
+            } else {
               setOptions([]);
               setDisplay(false);
-            });
-        }
-      }, 300);
-      return () => {
-        clearTimeout(cleanTimeout);
-      };
-    }, [search]);
+            }
+          })
+          .catch((err) => {
+            setOptions([]);
+            setDisplay(false);
+          });
+      }
+    }, 300);
+    return () => {
+      clearTimeout(cleanTimeout);
+    };
+  }, [search]);
 
   useEffect(() => {
     window.addEventListener("mousedown", handleClickOutside);
@@ -64,7 +66,10 @@ const Autocomplete = ({ getSelectedValue }) => {
         type="text"
         placeholder="Search movies / series"
         value={search}
-        onChange={(event) => {setCallMe(true);setSearch(event.target.value)}}
+        onChange={(event) => {
+          setCallMe(true);
+          setSearch(event.target.value);
+        }}
       />
       {display && (
         <div className="autoContainer">
