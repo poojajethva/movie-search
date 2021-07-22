@@ -7,14 +7,14 @@
 2. A package manager called npm. It is automatically included in your installation of Node.
 3. A good code editor to work with our project files. I highly recommend using the editor Visual Studio Code. You can grab it at code.visualstudio.com.
 
-**Let's start with the project setup:
-**
+**Let's start with the project setup:**
+
 1. Clone my repo using below command:
 git clone https://github.com/poojajethva/movie-search.git
 
 2. Run the project:
-  1. $ cd movie-search 
-  2. $ npm start
+  - $ cd movie-search 
+  - $ npm start
 
 **About "Movie Search" project:**
 
