@@ -7,9 +7,11 @@ const Autocomplete = ({ getSelectedValue }) => {
   const wrapperRef = useRef(null);
   let [callMe, setCallMe] = useState(false);
 
-    useEffect(() => {
-      const cleanTimeout = setTimeout(() => {
-        if (search.length < 3 || !callMe) {
+  useEffect(() => {
+    let cleanTimeout = "";
+    if (callMe) {
+      cleanTimeout = setTimeout(() => {
+        if (search.length < 3) {
           setOptions([]);
           setDisplay(false);
         } else {
@@ -32,10 +34,11 @@ const Autocomplete = ({ getSelectedValue }) => {
             });
         }
       }, 300);
-      return () => {
-        clearTimeout(cleanTimeout);
-      };
-    }, [search]);
+    }
+    return () => {
+      clearTimeout(cleanTimeout);
+    };
+  }, [search]);
 
   useEffect(() => {
     window.addEventListener("mousedown", handleClickOutside);
@@ -64,7 +67,10 @@ const Autocomplete = ({ getSelectedValue }) => {
         type="text"
         placeholder="Search movies / series"
         value={search}
-        onChange={(event) => {setCallMe(true);setSearch(event.target.value)}}
+        onChange={(event) => {
+          setCallMe(true);
+          setSearch(event.target.value);
+        }}
       />
       {display && (
         <div className="autoContainer">
